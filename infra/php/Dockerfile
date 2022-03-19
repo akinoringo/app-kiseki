@@ -26,8 +26,8 @@ RUN apt-get -y install git libicu-dev libonig-dev libzip-dev unzip locales \
 RUN curl -sL https://deb.nodesource.com/setup_10.x | bash -
 RUN apt-get install -y nodejs
 
-COPY ./infra/docker/php/php-fpm.d/zzz-www.conf /usr/local/etc/php-fpm.d/zzz-www.conf
-COPY ./infra/docker/php/php.ini /usr/local/etc/php/php.ini
+COPY ./infra/php/php-fpm.d/zzz-www.conf /usr/local/etc/php-fpm.d/zzz-www.conf
+COPY ./infra/php/php.ini /usr/local/etc/php/php.ini
 
 COPY --chown=www-data:www-data ./backend /work/backend
 

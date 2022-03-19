@@ -8,6 +8,6 @@ RUN apk update && \
   apk add --update --no-cache --virtual=.build-dependencies g++
 
 # nginx config file
-COPY ./infra/docker/nginx/default.conf /etc/nginx/conf.d/default.conf
+COPY ./infra/nginx/default.conf /etc/nginx/conf.d/default.conf
 
 WORKDIR /work/backend
