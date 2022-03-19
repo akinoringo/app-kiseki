@@ -5,24 +5,28 @@ volumes:
 
 services:
   app:
-    build: ./infra/php
+    build:
+      context: .
+      dockerfile: ./infra/docker/php/Dockerfile
     volumes:
       - php-fpm-socket:/var/run/php-fpm
       - ./backend:/work/backend
     environment:
       DB_CONNECTION: mysql
-      DB_HOST: db 
+      DB_HOST: db
       DB_DATABASE: ${DB_DATABASE}
       DB_USERNAME: ${DB_USERNAME}
       DB_PASSWORD: ${DB_PASSWORD}
-      TZ: ${TZ}      
+      TZ: ${TZ}
     depends_on:
       - db
     links:
       - db
 
   web:
-    build: ./infra/nginx
+    build:
+      context: .
+      dockerfile: ./infra/docker/nginx/Dockerfile
     ports:
       - 80:80
     volumes:
@@ -32,7 +36,9 @@ services:
       - app
 
   db:
-    build: ./infra/mysql
+    build:
+      context: .
+      dockerfile: ./infra/docker/mysql/Dockerfile
     ports:
       - 3306:3306
     environment:

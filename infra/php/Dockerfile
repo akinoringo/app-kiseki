@@ -2,12 +2,12 @@ FROM php:7.4-fpm-buster
 SHELL ["/bin/bash", "-oeux", "pipefail", "-c"]
 
 ENV \
-  COMPOSER_ALLOW_SUPERUSER=1 \
-  COMPOSER_HOME=/composer
+	COMPOSER_ALLOW_SUPERUSER=1 \
+	COMPOSER_HOME=/composer
 
 COPY --from=composer:2.0 /usr/bin/composer /usr/bin/composer
 
-RUN apt-get update 
+RUN apt-get update
 
 RUN apt-get -y install git libicu-dev libonig-dev libzip-dev unzip locales \
 	libfreetype6-dev libjpeg62-turbo-dev libpng-dev && \
@@ -26,7 +26,9 @@ RUN apt-get -y install git libicu-dev libonig-dev libzip-dev unzip locales \
 RUN curl -sL https://deb.nodesource.com/setup_10.x | bash -
 RUN apt-get install -y nodejs
 
-COPY ./php-fpm.d/zzz-www.conf /usr/local/etc/php-fpm.d/zzz-www.conf
-COPY ./php.ini /usr/local/etc/php/php.ini
+COPY ./infra/docker/php/php-fpm.d/zzz-www.conf /usr/local/etc/php-fpm.d/zzz-www.conf
+COPY ./infra/docker/php/php.ini /usr/local/etc/php/php.ini
+
+COPY --chown=www-data:www-data ./backend /work/backend
 
 WORKDIR /work/backend
