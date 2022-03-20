@@ -9,5 +9,6 @@ RUN apk update && \
 
 # nginx config file
 COPY ./infra/nginx/default.conf /etc/nginx/conf.d/default.conf
+COPY ./backend/public /work/backend/public
 
 WORKDIR /work/backend
